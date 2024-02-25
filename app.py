@@ -14,7 +14,6 @@ import os
 from sqlite3 import dbapi2 as sqlite3
 from flask import Flask, request, g, redirect, url_for, render_template, flash
 
-
 # create our little application :)
 app = Flask(__name__)
 
@@ -80,4 +79,14 @@ def add_entry():
                [request.form['title'], request.form['text']])
     db.commit()
     flash('New entry was successfully posted')
+    return redirect(url_for('show_entries'))
+
+
+@app.route('/mark_complete', methods=['POST'])
+def mark_complete():
+    db = get_db()
+    db.execute('UPDATE entries SET mark_complete = 1 WHERE id = ?',
+               [request.form['entry_id']])
+    db.commit()
+    flash('Entry marked complete')
     return redirect(url_for('show_entries'))
