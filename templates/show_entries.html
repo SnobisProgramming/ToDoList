@@ -20,8 +20,7 @@
 
       <form action="{{ url_for('delete_entry') }}" method="post">
           <input type="hidden" name="entry_id" value="{{ entry.id }}">
-                <button type="submit">X</button>
-          </input>
+          <button type="submit">X</button>
       </form>
   {% else %}
     <li><em>Unbelievable.  No entries here so far</em></li>
