@@ -90,3 +90,13 @@ def mark_complete():
     db.commit()
     flash('Entry marked complete')
     return redirect(url_for('show_entries'))
+
+
+@app.route('/delete_entry', methods=['POST'])
+def delete_entry():
+    db = get_db()
+    db.execute('delete from entries where id = ?',
+               [request.form['entry_id']])
+    db.commit()
+    flash('Entry deleted')
+    return redirect(url_for('show_entries'))
